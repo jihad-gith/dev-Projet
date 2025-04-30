@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - StyleMode</title>
+  <style>
+
+body {
+    font-family: 'Poppins', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.navbar {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 80px;
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+    width: 100px;
+    object-fit: cover;
+    height: 78px;
+    transition: transform 0.2s ease;
+}
+
+.icon:hover {
+    transform: scale(1.05);
+}
+
+.menu {
+    display: flex;
+    gap: 50px;
+}
+
+.menu a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #f07d88;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover {
+    color: #f07d88;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.icons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.icons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.icons img:hover {
+    transform: scale(1.15);
+    opacity: 0.8;
+}
+
+#cart-count {
+    position: absolute;
+    top: 18px;
+    right: 120px;
+    background-color: #f07d88;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+}
+
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.dashboard div {
+    text-align: center;
+    flex: 1;
+    padding: 35px 25px;
+    margin: 0 15px;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dashboard div:hover {
+    background-color: #f07d88;
+    color: white;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(240, 125, 136, 0.2);
+}
+
+.dashboard div h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+
+.dashboard div:hover h3 {
+    color: white;
+}
+
+.dashboard div p {
+    font-size: 18px;
+    color: #1abc9c;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    margin-top: 10px;
+}
+
+.dashboard div:hover p {
+    color: white;
+}
+
+
+.form-container {
+    background-color: white;
+    padding: 35px;
+    margin: 40px 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.form-container h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f07d88;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #f07d88;
+    outline: none;
+    box-shadow: 0 0 8px rgba(240, 125, 136, 0.4);
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #f07d88;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(240, 125, 136, 0.3);
+}
+
+button:hover {
+    background-color: #e74c3c;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 15px rgba(231, 76, 60, 0.4);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px 0;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 18px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+th {
+    background-color: #f07d88;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: #f9f9f9;
+}
+
+td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+td img:hover {
+    transform: scale(1.8);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions button {
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.actions .edit {
+    background-color: #f07d88;
+}
+
+.actions .delete {
+    background-color: rgb(219, 8, 8);
+}
+
+.actions .edit:hover {
+    background-color: #e74c3c;
+}
+
+.actions .delete:hover {
+    background-color: #d35400;
+}
+
+/* Catégories */
+.categories-section {
+    background-color: white;
+    padding: 35px;
+    margin: 40px 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.categories-section:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.categories-section h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f07d88;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.category-tag {
+    display: inline-block;
+    background-color: #f07d88;
+    color: white;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(240, 125, 136, 0.2);
+    transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+    background-color: #e74c3c;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.category-tag .delete-cat {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.category-tag .delete-cat:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+
+#categoryInput {
+    width: 70%;
+    padding: 12px 15px;
+    margin-right: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+#categoryInput:focus {
+    border-color: #f07d88;
+    box-shadow: 0 0 8px rgba(240, 125, 136, 0.4);
+    outline: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    
+    .dashboard div {
+        margin: 10px 0;
+    }
+    
+    .menu {
+        gap: 20px;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard div,
+.form-container,
+.categories-section {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Amélioration pour les groupes de formulaires */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+
+#newCategoryContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+#newCategoryInput {
+    flex: 1;
+}
+
+.count-badge {
+    background-color: #1abc9c;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+}
+
+
+.menu a.active {
+    color: #f07d88;
+    font-weight: 700;
+}
+
+.menu a.active::after {
+    width: 100%;
+}
+
+
+</style>
+
+  
+</head>
+<body>
+
+  <nav class="navbar">
+    <div><img class="icon" src="images/icon.png"></div>
+    <div class="menu">
+        <a href="produit.html">HOME</a>
+        <a href="produit.html">SHOP</a>
+        <a href="produit.html">PROMOTION</a>
+        <a href="produit.html">BLOG</a>
+        <a href="produit.html">PAGES</a>
+        <a href="produit.html">CONTACT</a>
+       
+    </div>
+    <div class="icons">
+        <img class="search" src="images/search.png" alt="Rechercher">
+        <a href="admin.html">
+            <img class="Utilisateur" src="images/user.png" alt="Utilisateur">
+        </a>
+        <div id="icone-panier" class="panier-container">
+          <a  href="panier.html">
+            <img src="images/pagnier.png" alt="Panier">
+            <span id="cart-count">0</span>
+          </a>
+           
+        </div>
+    </div>
+</nav>
+  
+
+ 
+  <div class="dashboard">
+    <div>
+      <h3>Produits</h3>
+      <p id="productCount">0</p>
+    </div>
+    <div>
+      <h3>Catégories</h3>
+      <p id="categoryCount">0</p>
+    </div>
+    <div>
+      <h3>Actions</h3>
+      <p><button onclick="toggleForm()">Ajouter un Produit</button></p>
+    </div>
+  </div>
+
+ 
+  <div class="form-container" id="formContainer" style="display: none;">
+    <form id="productForm">
+      <input type="hidden" id="editId" value="-1" />
+      <input type="text" id="nom" placeholder="Nom du produit" required />
+      <input type="text" id="prix" placeholder="Prix (ex: 19,99$)" required />
+      <input type="url" id="image" placeholder="URL de l'image" required />
+      
+     
+      <select id="categorie" required>
+        <option value="">Sélectionner une catégorie</option>
+      
+      </select>
+      
+   
+      <div style="display: flex; gap: 10px; margin: 10px 0;">
+        <button type="button" id="showNewCategoryBtn">+ Nouvelle catégorie</button>
+        <div id="newCategoryContainer" style="display: none; flex: 1;">
+          <input type="text" id="newCategoryInput" placeholder="Nom de la catégorie">
+          <button type="button" id="addNewCategoryBtn">Ajouter</button>
+        </div>
+      </div>
+      
+      <textarea id="description" placeholder="Description du produit" required></textarea>
+      <button type="submit">Ajouter / Modifier</button>
+    </form>
+  </div>
+ 
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Image</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="categories-section">
+    <h2>Gestion des Catégories</h2>
+    <div>
+        <input type="text" id="categoryInput" placeholder="Nouvelle catégorie...">
+        <button id="addCategoryBtn">Ajouter</button>
+    </div>
+    <div id="categoriesList" style="margin-top: 20px;">
+       
+    </div>
+</div>
+
+</div>
+
+<script>
+   function loadCategories() {
+           
+            let categories = localStorage.getItem('stylemode_categories');
+            
+            if (!categories) {
+             
+                categories = ["t-shirt", "robe", "veste", "pantalon"];
+                localStorage.setItem('stylemode_categories', JSON.stringify(categories));
+            } else {
+                categories = JSON.parse(categories);
+            }
+            
+         
+            displayCategories(categories);
+            
+            return categories;
+        }
+        
+     
+        function displayCategories(categories) {
+            const categoriesList = document.getElementById('categoriesList');
+            categoriesList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryTag = document.createElement('div');
+                categoryTag.className = 'category-tag';
+                categoryTag.innerHTML = `
+                    ${category}
+                    <span class="delete-cat" onclick="deleteCategory('${category}')">&times;</span>
+                `;
+                categoriesList.appendChild(categoryTag);
+            });
+        }
+     
+        function addCategory() {
+            const categoryInput = document.getElementById('categoryInput');
+            const newCategory = categoryInput.value.trim().toLowerCase();
+            
+            if (newCategory) {
+                let categories = JSON.parse(localStorage.getItem('stylemode_categories'));
+                
+              
+                if (!categories.includes(newCategory)) {
+                    categories.push(newCategory);
+                    localStorage.setItem('stylemode_categories', JSON.stringify(categories));
+                    displayCategories(categories);
+                    
+                  
+                    updateCategoryButtons();
+                
+                    categoryInput.value = '';
+                } else {
+                    alert('Cette catégorie existe déjà !');
+                }
+            }
+        }
+        
+      
+        function deleteCategory(category) {
+            if (confirm(`Voulez-vous vraiment supprimer la catégorie "${category}" ?`)) {
+                let categories = JSON.parse(localStorage.getItem('stylemode_categories'));
+                
+               
+                const produits = JSON.parse(localStorage.getItem('stylemode_produits')) || [];
+                const hasProducts = produits.some(produit => produit.categorie === category);
+                
+                if (hasProducts) {
+                    alert(`Impossible de supprimer cette catégorie car elle est utilisée par des produits.`);
+                    return;
+                }
+                
+         
+                categories = categories.filter(cat => cat !== category);
+                localStorage.setItem('stylemode_categories', JSON.stringify(categories));
+            
+                displayCategories(categories);
+                
+               
+                updateCategoryButtons();
+            }
+        }
+        
+       
+        function updateCategoryButtons() {
+            
+            localStorage.setItem('categories_updated', 'true');
+        }
+        
+        // Initialisation
+        document.getElementById('addCategoryBtn').addEventListener('click', addCategory);
+        document.getElementById('categoryInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addCategory();
+            }
+        });
+        
+        
+        loadCategories();
+
+  const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+  const form = document.getElementById('productForm');
+  const nomInput = document.getElementById('nom');
+  const prixInput = document.getElementById('prix');
+  const imageInput = document.getElementById('image');
+  const categorieInput = document.getElementById('categorie');
+  const descriptionInput = document.getElementById('description');
+  const editIdInput = document.getElementById('editId');
+  const formContainer = document.getElementById('formContainer');
+  const productCount = document.getElementById('productCount');
+  const categoryCount = document.getElementById('categoryCount');
+  
+
+  let produits = [];
+
+  function initProduits() {
+    const storedProducts = localStorage.getItem('stylemode_produits');
+    
+    if (storedProducts) {
+      produits = JSON.parse(storedProducts);
+    } else {
+     
+      produits = [
+        {
+            id: 1,
+            nom: "T-shirt Good",
+            categorie: "t-shirt",
+            prix: "19,99$",
+            description: "Ce T-shirt en coton doux allie confort et modernité pour un look minimaliste parfait au quotidien. Parfait pour ceux qui aiment la simplicité.",
+            image: "images/T-shirt1.png"
+        },
+        {
+            id: 2,
+            nom: "T-shirt Cool",
+            categorie: "t-shirt",
+            prix: "17,99$",
+            description: "Confortable, résistant et stylé, il te suit partout, que ce soit pour une virée entre amis ou un afterwork chill. Streetwear assumé, attitude garantie.",
+            image: "images/T-shirt2.png"
+        },
+        {
+            id: 3,
+            nom: "T-shirt La vie est belle",
+            categorie: "t-shirt",
+            prix: "20,99$",
+            description: "T-shirt léger au design inspiré par les grands espaces. Porte-le en ville ou en pleine nature pour un look cool et engagé.",
+            image: "images/T-shirt3.png"
+        },
+        {
+            id: 4,
+            nom: "T-shirt La vichie",
+            categorie: "t-shirt",
+            prix: "40,99$",
+            description: "Un T-shirt au message fort, coupe moderne et matière agréable à porter. Exprime ta personnalité en toute confiance.",
+            image: "images/T-shirt4.png"
+        },
+        {
+            id: 5,
+            nom: "Dress Blue",
+            categorie: "robe",
+            prix: "40,99$",
+            description: "Conçue pour allier confort et chic, elle t'accompagne du bureau à la soirée sans fausse note.",
+            image: "images/dress1.png"
+        },
+        {
+            id: 6,
+            nom: "Pink Dress",
+            categorie: "robe",
+            prix: "60,99$",
+            description: "Coupe aérienne, tissu respirant et motif tendance : elle incarne la fraîcheur estivale avec une touche de glamour.",
+            image: "images/dress2.png"
+        },
+        {
+            id: 7,
+            nom: "Yellow Dress",
+            categorie: "robe",
+            prix: "29,99$",
+            description: "Brille de mille feux avec cette robe élégante et fluide, parfaite pour les grandes occasions.",
+            image: "images/dress3.png"
+        },
+        {
+            id: 8,
+            nom: "Roses Dress",
+            categorie: "robe",
+            prix: "30,99$",
+            description: "Inspirée du style bohème, cette robe longue allie confort et liberté avec une touche romantique.",
+            image: "images/dress4.png"
+        },
+        {
+            id: 9,
+            nom: "Pink Veste",
+            categorie: "veste",
+            prix: "19,99$",
+            description: "Misez sur une allure urbaine affirmée avec cette veste zippée aux lignes modernes. Légère mais structurée.",
+            image: "images/veste1.png"
+        },
+        {
+            id: 10,
+            nom: "Grey Veste",
+            categorie: "veste",
+            prix: "50,99$",
+            description: "Une veste polyvalente et élégante, parfaite pour toutes occasions.",
+            image: "images/veste2.png"
+        },
+        {
+            id: 11,
+            nom: "Warmy Veste",
+            categorie: "veste",
+            prix: "100,99$",
+            description: "Chaleureuse et moderne, parfaite pour les saisons froides.",
+            image: "images/veste3.png"
+        },
+        {
+            id: 12,
+            nom: "Vichy Veste",
+            categorie: "veste",
+            prix: "200,99$",
+            description: "Style affirmé et coupe parfaite pour vos looks urbains.",
+            image: "images/veste4.png"
+        },
+        {
+            id: 13,
+            nom: "Pink Pants",
+            categorie: "pantalon",
+            prix: "19,99$",
+            description: "Coupe confortable, allure décontractée mais toujours tendance.",
+            image: "images/pantalon1.png"
+        },
+        {
+            id: 14,
+            nom: "Black Pants",
+            categorie: "pantalon",
+            prix: "18,99$",
+            description: "Tissu stretch, taille haute et finition soignée.",
+            image: "images/pantalon2.png"
+        },
+        {
+            id: 15,
+            nom: "Blue Pants",
+            categorie: "pantalon",
+            prix: "17,99$",
+            description: "Pensé pour bouger sans perdre en élégance, ce pantalon fluide modernise la silhouette.",
+            image: "images/pantalon3.png"
+        },
+        {
+            id: 16,
+            nom: "Stret Pants",
+            categorie: "pantalon",
+            prix: "18,99$",
+            description: "Pantalon au style décontracté, coupe droite et tissu doux pour un confort maximal.",
+            image: "images/pantalon4.png"
+        }
+      ];
+      
+      saveProducts();
+    }
+
+   
+    renderProducts();
+    updateStats();
+  }
+
+
+  function saveProducts() {
+    localStorage.setItem('stylemode_produits', JSON.stringify(produits));
+   
+    const produitsFormatted = [...produits]; 
+    localStorage.setItem('produits', JSON.stringify(produitsFormatted));
+  }
+
+  function updateStats() {
+    productCount.textContent = produits.length;
+ 
+    const categories = new Set();
+    produits.forEach(product => {
+      categories.add(product.categorie);
+    });
+    categoryCount.textContent = categories.size;
+  }
+
+ 
+  function renderProducts() {
+    productTable.innerHTML = '';
+    produits.forEach((produit) => {
+      const row = document.createElement('tr');
+      
+      row.innerHTML = `
+        <td>${produit.id}</td>
+        <td>${produit.nom}</td>
+        <td>${produit.prix}</td>
+        <td><img src="${produit.image}" alt="${produit.nom}" /></td>
+        <td>${produit.categorie}</td>
+        <td class="actions">
+          <button class="edit" onclick="editProduct(${produit.id})">Modifier</button>
+          <button class="delete" onclick="deleteProduct(${produit.id})">Supprimer</button>
+        </td>
+      `;
+      
+      productTable.appendChild(row);
+    });
+  }
+
+ 
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const nom = nomInput.value.trim();
+    const prix = prixInput.value.trim();
+    const image = imageInput.value.trim();
+    const categorie = categorieInput.value.trim().toLowerCase();
+    const description = descriptionInput.value.trim();
+    const editId = parseInt(editIdInput.value);
+
+    if (nom && prix && image && categorie && description) {
+      if (editId > 0) {
+       
+        const index = produits.findIndex(p => p.id === editId);
+        if (index !== -1) {
+          produits[index] = {
+            id: editId,
+            nom,
+            prix,
+            image,
+            categorie,
+            description
+          };
+        }
+      } else {
+       
+        const maxId = produits.reduce((max, produit) => Math.max(max, produit.id), 0);
+        const newProduct = {
+          id: maxId + 1,
+          nom,
+          prix,
+          image,
+          categorie,
+          description
+        };
+        produits.push(newProduct);
+      }
+
+    
+      saveProducts();
+      renderProducts();
+      updateStats();
+      
+    
+      form.reset();
+      editIdInput.value = -1;
+      formContainer.style.display = 'none';
+    }
+  });
+
+
+  function editProduct(id) {
+    const produit = produits.find(p => p.id === id);
+    if (produit) {
+      nomInput.value = produit.nom;
+      prixInput.value = produit.prix;
+      imageInput.value = produit.image;
+      categorieInput.value = produit.categorie;
+      descriptionInput.value = produit.description;
+      editIdInput.value = produit.id;
+      formContainer.style.display = 'block';
+      
+    
+      formContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  function mettreAJourCompteurPanier() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    let totalQuantite = panier.reduce((sum, item) => sum + item.quantite, 0);
+    document.getElementById('cart-count').textContent = totalQuantite;
+}
+
+mettreAJourCompteurPanier();
+
+function loadCategoriesInSelect() {
+  const categorieSelect = document.getElementById('categorie');
+  const categories = JSON.parse(localStorage.getItem('stylemode_categories')) || [];
+  
+  while (categorieSelect.options.length > 1) {
+    categorieSelect.remove(1);
+  }
+  
+  
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    categorieSelect.appendChild(option);
+  });
+}
+
+function addNewCategory() {
+  const newCategoryInput = document.getElementById('newCategoryInput');
+  const categoryName = newCategoryInput.value.trim().toLowerCase();
+  
+  if (categoryName) {
+  
+    let categories = JSON.parse(localStorage.getItem('stylemode_categories')) || [];
+    
+   
+    if (!categories.includes(categoryName)) {
+   
+      categories.push(categoryName);
+      localStorage.setItem('stylemode_categories', JSON.stringify(categories));
+   
+      loadCategoriesInSelect();
+      
+
+      document.getElementById('categorie').value = categoryName;
+      
+      newCategoryInput.value = '';
+      document.getElementById('newCategoryContainer').style.display = 'none';
+      
+      localStorage.setItem('categories_updated', 'true');
+    } else {
+      alert('Cette catégorie existe déjà !');
+    }
+  }
+}
+
+
+document.getElementById('showNewCategoryBtn').addEventListener('click', function() {
+  const container = document.getElementById('newCategoryContainer');
+  container.style.display = container.style.display === 'none' ? 'flex' : 'none';
+});
+
+document.getElementById('addNewCategoryBtn').addEventListener('click', addNewCategory);
+
+document.getElementById('newCategoryInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    addNewCategory();
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  if (!localStorage.getItem('stylemode_categories')) {
+    const defaultCategories = ["t-shirt", "robe", "veste", "pantalon"];
+    localStorage.setItem('stylemode_categories', JSON.stringify(defaultCategories));
+  }
+  
+  loadCategoriesInSelect();
+});
+
+ 
+  function deleteProduct(id) {
+    if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+      const index = produits.findIndex(p => p.id === id);
+      if (index !== -1) {
+        produits.splice(index, 1);
+        saveProducts();
+        renderProducts();
+        updateStats();
+      }
+    }
+  }
+
+ 
+  function toggleForm() {
+
+  if (formContainer.style.display !== 'block') {
+    form.reset();
+    editIdInput.value = -1;
+    loadCategoriesInSelect(); 
+  }
+  
+  formContainer.style.display = formContainer.style.display === 'block' ? 'none' : 'block';
+  
+  if (formContainer.style.display === 'block') {
+    formContainer.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+
+  window.addEventListener('DOMContentLoaded', initProduits);
+  
+</script>
+
+</body>
+</html>

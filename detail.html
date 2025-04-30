@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail Produit</title>
+    <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/icon.png" alt="logo">
+        </div>
+      
+        <div class="menu">
+            <a href="produit.html">HOME</a>
+            <a href="produit.html">SHOP</a>
+            <a href="produit.html">PROMOTION</a>
+            <a href="produit.html">BLOG</a>
+            <a href="produit.html">PAGES</a>
+            <a href="produit.html">CONTACT</a>
+        </div>
+      
+        <div class="icons">
+            <a href="admin.html"><img src="images/user.png" alt="Admin" /></a>
+            <a href="produit.html"><img src="images/search.png" alt="Recherche" /></a>
+            <a href="panier.html">
+                <img src="images/pagnier.png" alt="Panier">
+                <span id="cart-count">0</span> 
+            </a>
+        </div>
+    </div>
+
+    <section id="detail-produit">
+        <img id="detail-image" src="chemin/vers/image.jpg" alt="Image Produit">
+
+        <div class="detail-content">
+            <h1 id="detail-nom">T-shirt La vie est belle</h1>
+            <h2 id="detail-prix">20,99$</h2>
+            <p id="detail-description">
+                T-shirt léger au design inspiré par les grands espaces. Porte-le en ville ou en pleine nature pour un look cool et engagé.
+            </p>
+
+            <div class="quantite-container">
+                <button id="moins">−</button>
+                <span id="quantite">1</span>
+                <button id="plus">+</button>
+            </div>
+
+            <button class="btn-ajouter">Ajouter au panier</button>
+        </div>
+    </section>
+
+    <script src="produit.js"></script>
+    <script>
+       
+        const params = new URLSearchParams(window.location.search);
+        const nomProduit = params.get('nom');
+
+      
+        const produit = produits.find(p => p.nom === nomProduit);
+
+        
+        if (produit) {
+            document.getElementById('detail-nom').innerText = produit.nom;
+            document.getElementById('detail-prix').innerText = produit.prix;
+            document.getElementById('detail-description').innerText = produit.description;
+            document.getElementById('detail-image').src = produit.image;
+        } else {
+            document.getElementById('detail-produit').innerHTML = "<p>Produit non trouvé.</p>";
+        }
+
+        let quantite = 1;
+        document.getElementById("moins").addEventListener("click", () => {
+            if (quantite > 1) {
+                quantite--;
+                document.getElementById("quantite").textContent = quantite;
+            }
+        });
+
+        document.getElementById("plus").addEventListener("click", () => {
+            quantite++;
+            document.getElementById("quantite").textContent = quantite;
+        });
+
+        document.querySelector(".btn-ajouter").addEventListener("click", () => {
+           
+            if (produit) {
+                ajouterAuPanier(produit, quantite);
+                alert(`Produit ajouté au panier avec quantité : ${quantite}`);
+            } else {
+                alert("Produit non trouvé.");
+            }
+        });
+
+       
+        function ajouterAuPanier(produit, quantite) {
+            let panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+          
+            let produitExistant = panier.find(item => item.id === produit.id);
+
+            if (produitExistant) {
+                
+                produitExistant.quantite += quantite;
+            } else {
+              
+                panier.push({...produit, quantite});
+            }
+
+            localStorage.setItem('panier', JSON.stringify(panier));
+        }
+        function mettreAJourCompteurPanier() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    let totalQuantite = panier.reduce((sum, item) => sum + item.quantite, 0);
+    document.getElementById('cart-count').textContent = totalQuantite;
+}
+
+
+mettreAJourCompteurPanier();
+    </script>
+
+</body>
+</html>

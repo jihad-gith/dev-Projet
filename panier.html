@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon Panier</title>
+  <style>
+     .navbar{
+    display: flex;
+   background-color: white;
+   box-shadow: #333;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+    position: sticky;
+    top:0;
+    z-index: 1000;
+    height: 80px;
+   
+    
+}
+.icon{
+    width: 100px;
+    object-fit: cover;
+    height:78px;
+}
+.menu {
+    display: flex;
+    gap: 50px;
+  
+    
+}
+.menu a{
+    color: black;
+      font-weight: bold;
+      text-decoration: none;
+    
+}
+.menu :hover {
+    color: rgb(247, 8, 87);
+}
+.icons{
+    display: flex;
+    gap: 30px;
+}
+
+.icons img {
+   
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .icons img:hover {
+    transform: scale(1.1);
+    opacity: 0.7;
+     color: rgb(247, 8, 87);
+  }
+  #cart-count {
+    position: absolute;
+    top: 18px;
+    right: 120px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+    
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.2em;
+      margin: 30px 0;
+      color: #333;
+    }
+    .panier-vide {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .panier-vide i {
+      font-size: 4em;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .panier-vide p { font-size: 1.2em; margin-bottom: 20px; }
+    #liste-panier { margin: 30px auto; }
+    .item {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 15px;
+      transition: transform 0.2s ease;
+    }
+    .item:hover { transform: translateY(-3px); }
+    .item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 25px;
+    }
+    .item-info { flex-grow: 1; }
+    .item-info h3 { margin: 0; font-size: 18px; font-weight: 600; color: #333; }
+    .item-info p { margin: 8px 0 0; font-size: 16px; color: #3a86ff; font-weight: 600; }
+    .quantite-control {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .quantite-btn {
+      background-color: #f0f0f0;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .quantite-btn:hover { background-color: #e0e0e0; }
+    .quantite-input {
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      margin: 0 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .remove-btn {
+      background-color: #ff4757;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    .remove-btn:hover { background-color: #e84118; }
+    .resume-panier {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .ligne-resume {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .ligne-resume:last-child {
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 18px;
+      padding-top: 15px;
+    }
+    h2 { text-align: center; font-size: 1.4em; margin: 20px 0 10px; color: #333; }
+    #total { color: #3a86ff; font-weight: bold; }
+    .buttons { display: flex; justify-content: space-between; margin: 30px 0; }
+    .main-btn {
+      padding: 12px 20px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-align: center;
+    }
+    #vider-panier { background-color: #ff4757; color: white; }
+    #vider-panier:hover { background-color: #e84118; }
+    .checkout-btn {
+      background-color:  #ff4757;
+      color: white;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .checkout-btn:hover { background-color: #e84118; }
+    .main-btn-link {
+      background-color: #ff4757 ;
+      text-decoration: none;
+      color: white;
+      display: inline-block;
+    }
+    .main-btn-link:hover { background-color: #e84118; }
+    @media (max-width: 768px) {
+      .buttons { flex-direction: column; gap: 10px; }
+      .main-btn { width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .item { flex-direction: column; text-align: center; }
+      .item img { margin: 0 0 15px 0; }
+      .quantite-control { justify-content: center; margin: 15px 0; }
+      .remove-btn { width: 100%; }
+    }
+    
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div><img class="icon" src="images/icon.png"></div>
+    <div class="menu">
+        <a href="produit.html">HOME</a>
+        <a href="produit.html">SHOP</a>
+        <a href="produit.html">PROMOTION</a>
+        <a href="produit.html">BLOG</a>
+        <a href="produit.html">PAGES</a>
+        <a href="produit.html">CONTACT</a>
+       
+    </div>
+    <div class="icons">
+        <img class="search" src="images/search.png" alt="Rechercher">
+        <a href="admin.html">
+            <img class="Utilisateur" src="images/user.png" alt="Utilisateur">
+        </a>
+        <div id="icone-panier" class="panier-container">
+          <a>
+            <img src="images/pagnier.png" alt="Panier">
+            <span id="cart-count">0</span>
+          </a>
+           
+        </div>
+    </div>
+</nav>
+<header>
+  <div class="container">
+    <h1>🛒 Mon Panier</h1>
+  </div>
+</header>
+
+<div class="container">
+  <div id="liste-panier"></div>
+
+  <div id="resume-panier" class="resume-panier" style="display: none;">
+    <div class="ligne-resume">
+      <span>Sous-total:</span>
+      <span id="sous-total">0.00 €</span>
+    </div>
+    <div class="ligne-resume">
+      <span>Frais de livraison:</span>
+      <span id="frais-livraison">0.00 €</span>
+    </div>
+    <div class="ligne-resume">
+      <span>Total:</span>
+      <span id="total">0.00 €</span>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="main-btn" id="vider-panier"><i class="fas fa-trash"></i> Vider le panier</button>
+    <a href="produit.html" class="main-btn main-btn-link"><i class="fas fa-arrow-left"></i> Retour à la boutique</a>
+    <button class="main-btn checkout-btn" id="passer-commande"><i class="fas fa-check"></i> Passer la commande</button>
+  </div>
+</div>
+
+<script>
+  function afficherPanier() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    const container = document.getElementById('liste-panier');
+    const resumePanier = document.getElementById('resume-panier');
+    container.innerHTML = '';
+
+    if (panier.length === 0) {
+      container.innerHTML = `
+        <div class="panier-vide">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Votre panier est vide</p>
+          <a href="produit.html" class="main-btn main-btn-link">Découvrir nos produits</a>
+        </div>
+      `;
+      resumePanier.style.display = 'none';
+      return;
+    }
+
+    resumePanier.style.display = 'block';
+    let sousTotal = 0;
+
+    panier.forEach((item, index) => {
+      const prix = parseFloat(item.prix.toString().replace(',', '.').replace('$', '').replace('€', ''));
+      const quantite = item.quantite || 1;
+      const itemTotal = prix * quantite;
+      sousTotal += itemTotal;
+
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'item';
+
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = item.nom;
+
+      const info = document.createElement('div');
+      info.className = 'item-info';
+      info.innerHTML = `
+        <h3>${item.nom}</h3>
+        <p>${prix.toFixed(2)} €</p>
+        <div class="quantite-control">
+          <button class="quantite-btn" onclick="modifierQuantite(${index}, -1)">-</button>
+          <input type="number" min="1" value="${quantite}" class="quantite-input" onchange="changerQuantite(${index}, this.value)">
+          <button class="quantite-btn" onclick="modifierQuantite(${index}, 1)">+</button>
+        </div>
+      `;
+
+      const btn = document.createElement('button');
+      btn.className = 'remove-btn';
+      btn.innerHTML = '<i class="fas fa-trash"></i> Supprimer';
+      btn.onclick = () => supprimerArticle(index);
+
+      itemDiv.appendChild(img);
+      itemDiv.appendChild(info);
+      itemDiv.appendChild(btn);
+      container.appendChild(itemDiv);
+    });
+
+    const fraisLivraison = sousTotal > 50 ? 0 : 4.99;
+    const total = sousTotal + fraisLivraison;
+
+    document.getElementById('sous-total').textContent = sousTotal.toFixed(2) + ' €';
+    document.getElementById('frais-livraison').textContent = fraisLivraison.toFixed(2) + ' €';
+    document.getElementById('total').textContent = total.toFixed(2) + ' €';
+  }
+
+  function ajouterArticle(nouvelArticle) {
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+    const index = panier.findIndex(item => item.nom === nouvelArticle.nom);
+    if (index !== -1) {
+      panier[index].quantite = (panier[index].quantite || 1) + (nouvelArticle.quantite || 1);
+    } else {
+      panier.push({ ...nouvelArticle, quantite: nouvelArticle.quantite || 1 });
+    }
+
+    localStorage.setItem('panier', JSON.stringify(panier));
+    afficherPanier();
+    mettreAJourCompteurPanier(); 
+  }
+  function mettreAJourCompteurPanier() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    let totalQuantite = panier.reduce((sum, item) => sum + item.quantite, 0);
+    document.getElementById('cart-count').textContent = totalQuantite;
+}
+
+
+mettreAJourCompteurPanier();
+
+  function updateCartCount() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+   
+    let totalItems = 0;
+    panier.forEach(item => {
+        totalItems += item.quantite || 1;
+    });
+    document.getElementById('cart-count').textContent = totalItems;
+}
+
+  function supprimerArticle(index) {
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+    panier.splice(index, 1);
+    localStorage.setItem('panier', JSON.stringify(panier));
+    afficherPanier();
+  }
+
+  function modifierQuantite(index, delta) {
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+    const quantite = (panier[index].quantite || 1) + delta;
+    if (quantite < 1) return;
+    panier[index].quantite = quantite;
+    localStorage.setItem('panier', JSON.stringify(panier));
+    afficherPanier();
+  }
+
+  function changerQuantite(index, valeur) {
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+    const quantite = parseInt(valeur);
+    if (isNaN(quantite) || quantite < 1) return;
+    panier[index].quantite = quantite;
+    localStorage.setItem('panier', JSON.stringify(panier));
+    afficherPanier();
+  }
+
+  document.getElementById('vider-panier').addEventListener('click', () => {
+    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+      localStorage.removeItem('panier');
+      afficherPanier();
+    }
+  });
+
+  document.getElementById('passer-commande').addEventListener('click', () => {
+    alert('Redirection vers la page de paiement...');
+  });
+
+  afficherPanier();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits - StyleMode</title>
+    <link rel="stylesheet" href="produit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div><img class="icon" src="images/icon.png"></div>
+        <div class="menu">
+            <a href="">HOME</a>
+            <a href="#liste-produits">SHOP</a>
+            <a href="">PROMOTION</a>
+            <a href="">BLOG</a>
+            <a href="">PAGES</a>
+            <a href="#footer">CONTACT</a>
+        </div>
+    
+     
+    
+        <div class="icons">
+           
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Rechercher un produit...">
+            <img class="search" id="search-icon" src="images/search.png" alt="Rechercher">
+            <div id="search-results" class="search-results"></div>
+        </div>
+        
+        
+            
+            <a href="admin.html">
+                <img class="Utilisateur" src="images/user.png" alt="Utilisateur">
+            </a>
+            <div id="icone-panier" class="panier-container">
+                <img src="images/pagnier.png" alt="Panier">
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+    
+
+<section  class="hero-clas">
+    <img class="hero" src="images/hero.png" alt="">
+</section>
+
+<section class="features">
+    <div class="feature"><i class="fas fa-truck"></i><h3>Livraison Rapide</h3><p>Livraison gratuite à partir de 50€</p></div>
+    <div class="feature"><i class="fas fa-undo"></i><h3>Retours Faciles</h3><p>30 jours pour changer d'avis</p></div>
+    <div class="feature"><i class="fas fa-lock"></i><h3>Paiement Sécurisé</h3><p>Transactions 100% sécurisées</p></div>
+    <div class="feature"><i class="fas fa-headset"></i><h3>Service Client</h3><p>Assistance 7j/7</p></div>
+</section>
+
+<section>
+    <h2 class="name">NOS PRODUITS</h2>
+    <div class="buttons" id="category-buttons">
+        <button class="buttono active" data-category="all">TOUS</button>
+      
+    </div>
+</section>
+
+<div   id="liste-produits"></div>
+
+<div id="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&#10005;</span>
+      <div class="modal-body">
+        <div class="modal-image-container">
+          <img id="modal-image" src="" alt="">
+        </div>
+        <div class="modal-details">
+          <h2 id="modal-nom"></h2>
+          <p id="modal-prix"></p>
+          <div class="modal-buttons">
+            <button id="voir-plus" class="close">Voir plus</button>
+            <button class="close" onclick="closeModal()">Retour</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+<footer id="footer"  style="background-color: #111; color: #f1f1f1; padding: 50px 20px; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+        <div style="flex: 1; min-width: 250px;">
+            <h2 style="color: #ff6ec4;">StyleMode</h2>
+            <p>Découvrez les dernières tendances en matière de mode pour hommes et femmes. Livraison rapide, styles modernes et prix imbattables.</p>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <h3 style="color: #ff6ec4;">Navigation</h3>
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li><a href="#" style="color: #ccc; text-decoration: none;">Accueil</a></li>
+                <li><a href="#" style="color: #ccc; text-decoration: none;">Boutique</a></li>
+                <li><a href="#" style="color: #ccc; text-decoration: none;">Mon Panier</a></li>
+                <li><a href="#" style="color: #ccc; text-decoration: none;">Contact</a></li>
+            </ul>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <h3 style="color: #ff6ec4;">Contact</h3>
+            <p>Email : contact@stylemode.com</p>
+            <p>Téléphone : +212 6 00 00 00 00</p>
+            <p>Adresse : 123 Avenue Fashion, Rabat</p>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <h3 style="color: #ff6ec4;">Suivez-nous</h3>
+            <div style="display: flex; gap: 15px; margin-top: 10px;">
+                <a href="#" style="color: #f1f1f1;">Facebook</a>
+                <a href="#" style="color: #f1f1f1;">Instagram</a>
+                <a href="#" style="color: #f1f1f1;">TikTok</a>
+            </div>
+        </div>
+    </div>
+    <hr style="margin: 30px 0; border-color: #333;">
+    <p style="text-align: center; color: #777;">&copy; 2025 StyleMode. Tous droits réservés.</p>
+</footer>
+
+<script src="produit.js"></script>
+
+<script>
+    function loadCategoryButtons() {
+    const buttonContainer = document.getElementById('category-buttons');
+    
+    // Conserver uniquement le bouton "TOUS"
+    buttonContainer.innerHTML = '<button class="buttono active" data-category="all">TOUS</button>';
+    
+    // Écouteur pour le bouton ALL
+    const allBtn = document.querySelector('[data-category="all"]');
+    allBtn.addEventListener('click', () => {
+        document.querySelectorAll('.buttono').forEach(btn => btn.classList.remove('active'));
+        allBtn.classList.add('active');
+        document.querySelectorAll('.produit').forEach(produit => produit.style.display = 'block');
+    });
+
+    // Récupérer les catégories depuis localStorage
+    let categories = localStorage.getItem('stylemode_categories');
+    
+    if (categories) {
+        categories = JSON.parse(categories);
+        
+        // Créer un bouton pour chaque catégorie
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = 'buttono';
+            button.setAttribute('data-category', category);
+            button.textContent = category.toUpperCase();
+            
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.buttono').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const produitsElements = document.querySelectorAll('.produit');
+                produitsElements.forEach(produit => {
+                    if (produit.classList.contains(category)) {
+                        produit.style.display = 'block';
+                    } else {
+                        produit.style.display = 'none';
+                    }
+                });
+            });
+
+            buttonContainer.appendChild(button);
+        });
+    }
+}
+
+
+
+function afficherProduits(produitsAAfficher) {
+    const container = document.getElementById('liste-produits');
+    container.innerHTML = "";
+
+    produitsAAfficher.forEach(function(produit) {
+        const div = document.createElement('div');
+        div.className = "produit " + produit.categorie;
+        div.onclick = function() {
+            openModal(produit);
+        };
+        div.innerHTML = `
+            <img src="${produit.image}" alt="${produit.nom}">
+            <h2>${produit.nom}</h2>
+            <p>${produit.prix}</p>
+            <button class="btn-panier">Ajouter au panier</button>
+        `;
+        container.appendChild(div);
+    });
+
+    activerBoutonsPanier();
+}
+function mettreAJourCompteurPanier() {
+    const panier = JSON.parse(localStorage.getItem('panier')) || [];
+    let totalQuantite = panier.reduce((sum, item) => sum + item.quantite, 0);
+    document.getElementById('cart-count').textContent = totalQuantite;
+}
+
+
+mettreAJourCompteurPanier();
+
+
+function openModal(produit) {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modal-nom').innerText = produit.nom;
+    document.getElementById('modal-image').src = produit.image;
+    document.getElementById('modal-prix').innerText = produit.prix;
+    
+
+    document.getElementById('voir-plus').onclick = function() {
+        window.location.href = 'detail.html?nom=' + encodeURIComponent(produit.nom);
+    };
+}
+
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+function activerFiltres() {
+    const filterButtons = document.querySelectorAll('.buttono');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+           
+            document.querySelectorAll('.buttono').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+      
+            button.classList.add('active');
+            
+            const category = button.getAttribute('data-category');
+            const produitsElements = document.querySelectorAll('.produit');
+
+            produitsElements.forEach(produit => {
+                if (category === 'all' || produit.classList.contains(category)) {
+                    produit.style.display = 'block';
+                } else {
+                    produit.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+function initialiserPage() {
+   
+    if (localStorage.getItem('categories_updated') === 'true') {
+        localStorage.removeItem('categories_updated');
+        loadCategoryButtons();
+    } else {
+        
+        if (!localStorage.getItem('stylemode_categories')) {
+            const defaultCategories = ["t-shirt", "robe", "veste", "pantalon"];
+            localStorage.setItem('stylemode_categories', JSON.stringify(defaultCategories));
+        }
+        loadCategoryButtons();
+    }
+    
+
+    afficherProduits(produits);
+    
+    
+    
+    mettreAJourCompteurPanier();
+}
+
+
+window.addEventListener('DOMContentLoaded', initialiserPage);
+
+function activerBoutonsPanier() {
+    const btns = document.querySelectorAll('.btn-panier');
+    btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const produit = btn.closest('.produit');
+            const nom = produit.querySelector('h2').textContent;
+            const prix = produit.querySelector('p').textContent;
+            const image = produit.querySelector('img').src;
+
+            const nouvelArticle = { nom, prix, image, quantite: 1 };
+            ajouterArticle(nouvelArticle);
+            alert(`${nom} a été ajouté au panier !`);
+        });
+    });
+}
+document.getElementById('search-input').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    const produits = document.querySelectorAll('.produit');
+
+    produits.forEach(produit => {
+        const nom = produit.querySelector('h2').textContent.toLowerCase();
+        if (nom.includes(query)) {
+            produit.style.display = 'block';
+        } else {
+            produit.style.display = 'none';
+        }
+    });
+});
+const searchInput = document.getElementById('search-input');
+const searchIcon = document.getElementById('search-icon');
+const searchResults = document.getElementById('search-results');
+let searchTimeout;
+
+// Fonction pour afficher/masquer la barre de recherche
+searchIcon.addEventListener('click', () => {
+    searchInput.classList.toggle('active');
+    if (searchInput.classList.contains('active')) {
+        searchInput.focus();
+    } else {
+        searchResults.style.display = 'none';
+    }
+});
+
+// Recherche améliorée avec délai et mise en surbrillance
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    const query = this.value.toLowerCase().trim();
+    
+    // Délai de 300ms pour éviter trop de calculs pendant la frappe
+    searchTimeout = setTimeout(() => {
+        // Si la requête est vide, masquer les résultats et afficher tous les produits
+        if (query === '') {
+            searchResults.style.display = 'none';
+            document.querySelectorAll('.produit').forEach(produit => {
+                produit.style.display = 'block';
+            });
+            return;
+        }
+        
+        const produitsElements = document.querySelectorAll('.produit');
+        let resultCount = 0;
+        let resultsHTML = '';
+        
+        // Filtrer les produits et créer la liste des résultats
+        produitsElements.forEach(produit => {
+            const nom = produit.querySelector('h2').textContent.toLowerCase();
+            const prix = produit.querySelector('p').textContent;
+            const image = produit.querySelector('img').src;
+            
+            if (nom.includes(query)) {
+                produit.style.display = 'block';
+                resultCount++;
+                
+                // Créer un élément de résultat avec image miniature
+                if (resultCount <= 5) { // Limiter à 5 résultats dans la liste déroulante
+                    const highlightedName = nom.replace(
+                        new RegExp(query, 'gi'),
+                        match => `<strong>${match}</strong>`
+                    );
+                    
+                    resultsHTML += `
+                        <div class="search-result-item" data-product="${nom}">
+                            <img src="${image}" alt="${nom}">
+                            <div>
+                                <p>${highlightedName}</p>
+                                <span>${prix}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                produit.style.display = 'none';
+            }
+        });
+        
+        // Afficher les résultats dans la liste déroulante
+        if (resultCount > 0) {
+            searchResults.innerHTML = resultsHTML + 
+                (resultCount > 5 ? `<div class="more-results">+ ${resultCount - 5} autres résultats</div>` : '');
+            searchResults.style.display = 'block';
+            
+            // Ajouter des événements de clic aux résultats
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const productName = this.getAttribute('data-product');
+                    const productElement = Array.from(produitsElements).find(el => 
+                        el.querySelector('h2').textContent.toLowerCase() === productName
+                    );
+                    
+                    if (productElement) {
+                    
+                        productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                      
+                        productElement.classList.add('highlight-product');
+                        setTimeout(() => {
+                            productElement.classList.remove('highlight-product');
+                        }, 2000);
+                        
+                     
+                        searchResults.style.display = 'none';
+                    }
+                });
+            });
+        } else {
+            searchResults.innerHTML = '<div class="no-results">Aucun produit trouvé</div>';
+            searchResults.style.display = 'block';
+        }
+    }, 300);
+});
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-container')) {
+        searchResults.style.display = 'none';
+    }
+});
+
+
+function ajouterArticle(nouvelArticle) {
+    let panier = JSON.parse(localStorage.getItem('panier')) || [];
+    const index = panier.findIndex(item => item.nom === nouvelArticle.nom);
+
+    if (index !== -1) {
+        panier[index].quantite += 1;
+    } else {
+        panier.push(nouvelArticle);
+    }
+
+    localStorage.setItem('panier', JSON.stringify(panier));
+    mettreAJourCompteurPanier(); 
+}
+
+
+document.getElementById('icone-panier').addEventListener('click', () => {
+    window.location.href = 'panier.html';
+});
+
+
+afficherProduits(produits);
+
+
+
+
+</script>
+
+</body>
+</html>
