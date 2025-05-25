@@ -129,6 +129,13 @@ var produits = [
         image: "images/pantalon4.png"
     }
 ];
+// Après votre tableau de produits
 if (!localStorage.getItem('stylemode_produits')) {
     localStorage.setItem('stylemode_produits', JSON.stringify(produits));
+    
+    // Initialisez aussi les catégories si elles n'existent pas
+    if (!localStorage.getItem('stylemode_categories')) {
+        const categories = ["t-shirt", "robe", "veste", "pantalon"];
+        localStorage.setItem('stylemode_categories', JSON.stringify(categories));
+    }
 }
